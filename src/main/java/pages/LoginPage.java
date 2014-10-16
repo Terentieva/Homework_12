@@ -21,8 +21,8 @@ public class LoginPage extends PageObject {
     WebElement loginButton;
 
     @CacheLookup
-    @FindBy(xpath="//*[@href='/search']")
-    WebElement searchLink;
+    @FindBy(className = "menu_login")
+    WebElement menuLogin;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -43,5 +43,5 @@ public class LoginPage extends PageObject {
         element(loginButton).click();
     }
 
-    public void clickSearchLink(){element(searchLink).click();}
+    public String getLoginMenuValue(){ return element(menuLogin).getText();}
 }

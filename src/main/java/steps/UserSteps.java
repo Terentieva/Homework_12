@@ -69,8 +69,8 @@ public class UserSteps extends ScenarioSteps{
     }
 
     @Step
-    public void open_search_page_from_login_page()
+    public String get_login_value()
     {
-        loginPage.clickSearchLink();
+        return loginPage.getLoginMenuValue();
     }
 }

@@ -17,13 +17,11 @@ public class SearchScenarioSteps {
         user.open_search_page();
     }
 
-    @Given("A user is logged in as $login with $password & a search page is opened")
-    public void openSearchPageAsLoggedUser(String login, String password)
+    @Given("A login page is opened")
+    public void openLoginPage()
     {
         user.open_home_page();
         user.open_login_page();
-        user.login_to_the_system(login, password);
-        user.open_search_page_from_login_page();
     }
 
     @When("User enters $searchCriteria into search field & presses Search button")
@@ -33,17 +31,23 @@ public class SearchScenarioSteps {
         user.press_search_button();
     }
 
+    @When("A user is enter $login login and $password password")
+    public void loginToTheSystem(String login, String password)
+    {
+        user.login_to_the_system(login, password);
+    }
+
     @Then("The user is given the relevant search results")
     public void checkSearchResults()
     {
         String searchResult = user.get_search_results();
-        assert(!searchResult.contains("nothing was found!"));
+        assert(!searchResult.contains("nothing was found!")): "Nothing was found";
     }
 
-    @When("User enters $searchCriteria into search field on Search Page & presses Search button")
-    public void enterSearchCriteriaOnSearchPage(String searchCriteria)
+    @Then("The $username username should be peresent on page")
+    public void enterSearchCriteriaOnSearchPage(String username)
     {
-        user.enter_search_criteria(searchCriteria);
-        user.press_search_button();
+        String pageUsername = user.get_login_value();
+        assert(pageUsername.contains(username)): "Username does not present on page";
     }
 }
